@@ -2,6 +2,7 @@ import pandas as pd
 from statsmodels.tsa.arima.model import ARIMA
 from math import sqrt
 from sklearn.metrics import mean_squared_error
+import matplotlib.pyplot as plt
 # Load dataset
 data = pd.read_csv(r"C:\Users\HP\Desktop\New ML\Demand-forecasting\data (1).csv")
 # Split data into training and test sets
@@ -39,3 +40,9 @@ arima_predictions  = arima_model.predict(start=test_data_resampled.index[0],end=
 # Calculating RMSE
 arima_rmse = sqrt(mean_squared_error(test_data_resampled,arima_predictions))
 print(arima_rmse)
+# Plot original data and predictions
+plt.figure(figsize=(10,6))
+plt.plot(weekly_data,label='Original')
+plt.plot(arima_predictions,label='ARIMA')
+plt.legend()
+plt.show()
